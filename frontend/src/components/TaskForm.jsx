@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
-const API = axios.create({ baseURL: `${process.env.VITE_API_URL || 'http://localhost:5000'}/api/tasks` });
+import API from '../api';
 
 const TaskForm = ({ fetchTasks }) => {
   const [title, setTitle] = useState('');
@@ -10,7 +8,7 @@ const TaskForm = ({ fetchTasks }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post('/', { title, description });
+  await API.post('/tasks', { title, description });
   setTitle('');
   setDescription('');
       if (typeof fetchTasks === 'function') {

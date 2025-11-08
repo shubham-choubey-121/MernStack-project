@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-const API = axios.create({ baseURL: `${process.env.VITE_API_URL || 'http://localhost:5000'}/api/tasks` });
+import API from '../api';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -11,7 +9,7 @@ const TaskList = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await API.get('/');
+  const res = await API.get('/tasks');
       setTasks(res.data || []);
     } catch (error) {
       console.error(error);
@@ -20,7 +18,7 @@ const TaskList = () => {
 
   const deleteTask = async (id) => {
     try {
-      await API.delete(`/${id}`);
+  await API.delete(`/tasks/${id}`);
       fetchTasks();
     } catch (error) {
       console.error(error);
@@ -35,7 +33,7 @@ const TaskList = () => {
           : task.status === 'In Progress'
           ? 'Completed'
           : 'Pending';
-      await API.put(`/${task._id}`, { status: newStatus });
+  await API.put(`/tasks/${task._id}`, { status: newStatus });
       fetchTasks();
     } catch (error) {
       console.error(error);
@@ -56,7 +54,7 @@ const TaskList = () => {
 
   const saveEdit = async (id) => {
     try {
-      await API.put(`/${id}`, { title: editTitle, description: editDescription });
+  await API.put(`/tasks/${id}`, { title: editTitle, description: editDescription });
       cancelEdit();
       fetchTasks();
     } catch (err) {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import API from '../api';
 
 const SignupForm = ({ onSignupSuccess, onShowLogin }) => {
   const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ const SignupForm = ({ onSignupSuccess, onShowLogin }) => {
     }
 
     try {
-      const response = await axios.post(`${process.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/register`, {
+      const response = await API.post('/auth/register', {
         name: formData.name,
         email: formData.email,
         password: formData.password

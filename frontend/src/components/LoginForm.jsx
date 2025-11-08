@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import API from '../api';
 
 const LoginForm = ({ onLoginSuccess, onShowSignup }) => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const LoginForm = ({ onLoginSuccess, onShowSignup }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/login`, formData);
+      const response = await API.post('/auth/login', formData);
   // Store token in localStorage
   localStorage.setItem('token', response.data.token);
   // Call optional callback to update parent state
