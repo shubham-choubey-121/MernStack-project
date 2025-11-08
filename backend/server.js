@@ -27,6 +27,14 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    environment: process.env.NODE_ENV,
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Static uploads
 app.use('/uploads', express.static('uploads'));
 
